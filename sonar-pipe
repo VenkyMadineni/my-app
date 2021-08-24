@@ -1,0 +1,19 @@
+node{
+   stage('SCM Checkout'){
+     git 'https://github.com/javahometech/my-app'
+   }
+   stage('Compile-Package'){
+         
+      sh "mvn package"
+   }
+   
+   stage('SonarQube Analysis') {
+        
+        withSonarQubeEnv('sonarscanner4') { 
+          sh "mvn sonar:sonar"
+        }
+    }
+   
+  
+
+}
